@@ -1,14 +1,14 @@
 # KotlinSupplement
 Collection of Advance Kotlin Extension Functions
 
-KotlinSupplement is a simple library with collection of advance usefull Kotlin extension functions.
+KotlinSupplement is a simple library with collection of advance useful Kotlin extension functions.
 
 
 Current Version: 1.0.0
 
 ### Collection of Extension Functions for:
 
-- Acitivity
+- Activity
 - Context
 - Format Conversion
 - Graphics
