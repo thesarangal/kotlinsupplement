@@ -1,0 +1,3 @@
+rootProject.name = "KotlinSupplementSample"
+include ':app'
+include ':kotlinsupplement'

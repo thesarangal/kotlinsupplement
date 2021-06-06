@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="in.sarangal.kotlinsupplement"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <queries>
+
+        <!-- Specific apps you interact with, eg: -->
+        <package android:name="com.google.android.apps.maps" />
+
+    </queries>
+
+</manifest>
