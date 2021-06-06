@@ -15,6 +15,7 @@ Current Version: 1.0.0
 - LOG
 - Safety Function for String, Array and Collections etc
 - String
+- Validations
 - Misc
 
 ### How to To get a Git project into your build
