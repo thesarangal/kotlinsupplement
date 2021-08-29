@@ -4,7 +4,7 @@ Collection of Advance Kotlin Extension Functions
 KotlinSupplement is a simple library with collection of advance useful Kotlin extension functions.
 
 
-Current Version: 1.0.0
+Current Version: [![](https://jitpack.io/v/thesarangal/kotlinsupplement.svg)](https://jitpack.io/#thesarangal/kotlinsupplement)
 
 ### Collection of Extension Functions for:
 
