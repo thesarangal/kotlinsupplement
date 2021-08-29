@@ -96,8 +96,13 @@ fun Activity.openDialerForCall(number: String) {
     /* Send phone number to intent as data */
     intent.data = Uri.parse("tel:$number")
 
-    /* Start the dialer app activity with number */
-    startActivity(intent)
+    if (intent.resolveActivity(packageManager) != null) {
+
+        /* Start the dialer app activity with number */
+        startActivity(intent)
+    } else {
+        toast("You may not have a proper app for viewing this content")
+    }
 }
 
 /**
@@ -109,6 +114,12 @@ fun Activity.openEmail(email: String) {
     val emailIntent = Intent(Intent.ACTION_SENDTO)
     emailIntent.data = Uri.parse("mailto:$email")
     startActivity(emailIntent)
+
+    if (emailIntent.resolveActivity(packageManager) != null) {
+        startActivity(emailIntent)
+    } else {
+        toast("You may not have a proper app for viewing this content")
+    }
 }
 
 /**
@@ -126,7 +137,12 @@ fun Activity.openURLInBrowser(urlString: String) {
     val intent = Intent(Intent.ACTION_VIEW)
     intent.data = Uri.parse(url)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-    startActivity(intent)
+
+    if (intent.resolveActivity(packageManager) != null) {
+        startActivity(intent)
+    } else {
+        toast("You may not have a proper app for viewing this content")
+    }
 }
 
 /**
@@ -139,12 +155,17 @@ fun Activity.shareTextMessage(shareText: String?) {
     intent2.action = Intent.ACTION_SEND
     intent2.type = "text/plain"
     intent2.putExtra(Intent.EXTRA_TEXT, shareText)
-    startActivity(
-        Intent.createChooser(
-            intent2,
-            "Share Via"
+
+    if (intent2.resolveActivity(packageManager) != null) {
+        startActivity(
+            Intent.createChooser(
+                intent2,
+                "Share Via"
+            )
         )
-    )
+    } else {
+        toast("You may not have a proper app for viewing this content")
+    }
 }
 
 /**
