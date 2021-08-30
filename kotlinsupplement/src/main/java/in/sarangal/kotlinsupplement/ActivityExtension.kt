@@ -1,6 +1,7 @@
 package `in`.sarangal.kotlinsupplement
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -96,11 +97,9 @@ fun Activity.openDialerForCall(number: String) {
     /* Send phone number to intent as data */
     intent.data = Uri.parse("tel:$number")
 
-    if (intent.resolveActivity(packageManager) != null) {
-
-        /* Start the dialer app activity with number */
+    try {
         startActivity(intent)
-    } else {
+    } catch (e: ActivityNotFoundException) {
         toast("You may not have a proper app for viewing this content")
     }
 }
@@ -115,9 +114,9 @@ fun Activity.openEmail(email: String) {
     emailIntent.data = Uri.parse("mailto:$email")
     startActivity(emailIntent)
 
-    if (emailIntent.resolveActivity(packageManager) != null) {
+    try {
         startActivity(emailIntent)
-    } else {
+    } catch (e: ActivityNotFoundException) {
         toast("You may not have a proper app for viewing this content")
     }
 }
@@ -138,9 +137,9 @@ fun Activity.openURLInBrowser(urlString: String) {
     intent.data = Uri.parse(url)
     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
 
-    if (intent.resolveActivity(packageManager) != null) {
+    try {
         startActivity(intent)
-    } else {
+    } catch (e: ActivityNotFoundException) {
         toast("You may not have a proper app for viewing this content")
     }
 }
@@ -156,13 +155,13 @@ fun Activity.shareTextMessage(shareText: String?) {
     intent2.type = "text/plain"
     intent2.putExtra(Intent.EXTRA_TEXT, shareText)
 
+    val chooser: Intent = Intent.createChooser(
+        intent2,
+        "Share Via"
+    )
+
     if (intent2.resolveActivity(packageManager) != null) {
-        startActivity(
-            Intent.createChooser(
-                intent2,
-                "Share Via"
-            )
-        )
+        startActivity(chooser)
     } else {
         toast("You may not have a proper app for viewing this content")
     }
