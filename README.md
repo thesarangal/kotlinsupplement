@@ -63,7 +63,9 @@ Done! The first time you request a project JitPack checks out the code, builds i
 ##### * shareTextMessage
 ##### * openDirectionInGoogleMap
 ##### * openLocationInGoogleMap
-##### * openAddressInGoogleMap
+##### * setStatusBarColor
+##### * setNavigationBarColor
+##### * setSystemBarColor
 
 #### II. Context Extensions
 ##### * copyTextToClipboard
@@ -82,6 +84,7 @@ Done! The first time you request a project JitPack checks out the code, builds i
 ##### * modifyOrientation
 ##### * flip
 ##### * rotateImage
+##### * addGradient
 
 #### V. LOG Extensions
 ##### * logger
@@ -109,6 +112,8 @@ Done! The first time you request a project JitPack checks out the code, builds i
 ##### * getCurrencySymbol
 ##### * isContainEnglish
 ##### * isContainHindi
+##### * haveAnyAlphabetNumber
+##### * isContainNumber
 
 #### VIII. Validation Extensions
 ##### * isValidIFSC
@@ -116,9 +121,12 @@ Done! The first time you request a project JitPack checks out the code, builds i
 ##### * isValidPANCard
 ##### * isStrongPassword
 ##### * isPhoneValid
+##### * isPasswordValid
+##### * isValidPackageName
 
 #### IX. Misc Extensions
 ##### * mixTwoColors
+##### * isColorDark
 
 
 

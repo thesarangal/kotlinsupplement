@@ -1,9 +1,7 @@
 package `in`.sarangal.kotlinsupplement
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Matrix
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
@@ -129,5 +127,35 @@ fun rotateImage(img: Bitmap, degree: Int): Bitmap? {
         logger(TAG, "rotateImage: ${e.message}", LogType.ERROR)
         img
     }
+}
+
+/**
+ * @return Gradient Bitmap Image
+ *
+ * @param startColor    Start Color
+ * @param endColor      End Color
+ * */
+fun Bitmap.addGradient(startColor: Int, endColor: Int): Bitmap {
+    val width = this.width
+    val height = this.height
+    val updatedBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(updatedBitmap)
+    canvas.drawBitmap(this, 0F, 0F, null)
+    val paint = Paint()
+    if (startColor == endColor) {
+        paint.colorFilter = PorterDuffColorFilter(startColor, PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(this, 0F, 0F, paint)
+    } else {
+        val shader =
+            LinearGradient(
+                0F, 0F, 0F, height.toFloat(),
+                startColor, endColor, Shader.TileMode.CLAMP
+            )
+        paint.shader = shader
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawRect(0F, 0F, width.toFloat(), height.toFloat(), paint)
+    }
+
+    return updatedBitmap ?: this
 }
 

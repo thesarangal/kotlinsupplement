@@ -1,7 +1,8 @@
 package `in`.sarangal.kotlinsupplement
 
+import android.text.TextUtils
+import android.util.Patterns
 import java.util.regex.Pattern
-
 
 /**
  * Validations Extensions
@@ -64,6 +65,29 @@ fun isPhoneValid(phone: String): Boolean {
     return android.util.Patterns.PHONE.matcher(phone).matches()
 }
 
+/**
+ * @return TRUE if String is valid Email Address structure
+ * */
+fun String.isEmailValid(): Boolean {
+    return !TextUtils.isEmpty(this.trim())
+            && Patterns.EMAIL_ADDRESS.matcher(this.trim()).matches()
+}
+
+/**
+ * @return TRUE if String have character in between 8 and 15
+ * */
+fun String.isPasswordValid(): Boolean {
+    return !TextUtils.isEmpty(this.trim())
+            && (this.trim()).length >= 8 && (this.trim()).length <= 15
+}
+
+/**
+ * @return TRUE if STRING is valid PACKAGE NAME
+ * */
+fun String.isValidPackageName(): Boolean {
+    val VALID_PACKAGE_REG = "^([A-Za-z][A-Za-z\\d_]*\\.)+[A-Za-z][A-Za-z\\d_]*$"
+    return Pattern.compile(VALID_PACKAGE_REG).matcher(this.trim()).matches()
+}
 
 
 

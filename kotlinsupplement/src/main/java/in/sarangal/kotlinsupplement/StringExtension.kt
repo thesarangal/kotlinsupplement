@@ -3,6 +3,8 @@ package `in`.sarangal.kotlinsupplement
 import android.graphics.Color
 import java.text.DecimalFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 /**
  * String Extensions
@@ -23,8 +25,8 @@ fun String.lowerCase() = this.lowercase(Locale.getDefault())
  *
  * @param locale Locale
  * */
-fun String.capitalize(locale: Locale) = replaceFirstChar {
-    if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+fun String.capitalize(locale: Locale ?= null) = replaceFirstChar {
+    if (it.isLowerCase()) it.titlecase(locale ?: Locale.getDefault()) else it.toString()
 }
 
 /**
@@ -141,4 +143,21 @@ fun String.isContainEnglish(): Boolean {
         }
     }
     return isEnglish
+}
+
+/**
+ * @return TRUE if String contains any Alphabet or Number else FALSE
+ * */
+fun String.haveAnyAlphabetNumber(): Boolean {
+    val pattern = Pattern.compile("[a-zA-Z0-9]")
+    val matcher: Matcher = pattern.matcher(this)
+    return matcher.find()
+}
+
+/**
+ * @return TRUE if STRING is contain any number
+ * */
+fun String.isContainNumber(): Boolean {
+    val CONTAIN_NUMBER = ".*\\d.*"
+    return Pattern.compile(CONTAIN_NUMBER).matcher(this.trim()).matches()
 }

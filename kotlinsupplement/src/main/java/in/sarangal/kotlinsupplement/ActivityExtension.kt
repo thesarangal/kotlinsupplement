@@ -6,10 +6,13 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 import kotlin.system.exitProcess
 
 
@@ -214,5 +217,141 @@ fun Activity.openAddressInGoogleMap(address: String) {
         startActivity(mapIntent)
     } else {
         openURLInBrowser( "https://www.google.com/maps/place/$address/")
+    }
+}
+
+/**
+ * Set System Bar Color (StatusBar)
+ *
+ * @param statusBarColor For StatusBar Color
+ * @param view Parent View of Activity
+ *
+ * Makes status bars become opaque with solid dark background and light foreground.
+ */
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun Activity.setStatusBarColor(statusBarColor: Int, view: View ?= null) {
+    window.statusBarColor = statusBarColor
+
+    val isColorDark = statusBarColor.isColorDark()
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.setSystemBarsAppearance(
+            if (isColorDark) 0
+            else WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+        )
+        return
+    }
+
+    @Suppress("DEPRECATION")
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        (view ?: window.decorView).systemUiVisibility = if(isColorDark) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+    }
+}
+
+/**
+ * Set System Bar Color (NavigationBar)
+ *
+ * @param navigationBarColor For System NavigationBar Color
+ * @param view Parent View of Activity
+ *
+ * Makes status bars become opaque with solid dark background and light foreground.
+ */
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun Activity.setNavigationBarColor(navigationBarColor: Int, view: View ?= null) {
+    window.navigationBarColor = navigationBarColor
+
+    val isColorDark = navigationBarColor.isColorDark()
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.setSystemBarsAppearance(
+            if (isColorDark) 0
+            else WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS,
+            WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+        )
+        return
+    }
+
+    @Suppress("DEPRECATION")
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+        (view ?: window.decorView).apply {
+            systemUiVisibility = if (isColorDark) 0
+            else View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+        }
+    }
+}
+
+/**
+ * Set System Bar Color (StatusBar & NavigationBar)
+ *
+ * @param statusBarColor For StatusBar Color
+ * @param navigationBarColor For System NavigationBar Color
+ * @param view Parent View of Activity
+ *
+ * Makes status bars become opaque with solid dark background and light foreground.
+ */
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+fun Activity.setSystemBarColor(statusBarColor: Int,
+                               navigationBarColor: Int,
+                               view: View ?= null) {
+    window.statusBarColor = statusBarColor
+    window.navigationBarColor = navigationBarColor
+
+    val isColorDarkStatusBar = statusBarColor.isColorDark()
+    val isColorDarkNavigationBar = navigationBarColor.isColorDark()
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        window.insetsController?.setSystemBarsAppearance(
+
+            when {
+                isColorDarkStatusBar && isColorDarkNavigationBar -> {
+                    0
+                }
+
+                isColorDarkStatusBar -> {
+                    WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+                }
+
+                isColorDarkNavigationBar -> {
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                }
+
+                else -> {
+                    WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS or WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+                }
+            },
+            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS or WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
+        )
+        return
+    }
+
+    @Suppress("DEPRECATION")
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        (view ?: window.decorView).systemUiVisibility = when {
+            isColorDarkStatusBar && isColorDarkNavigationBar -> {
+                0
+            }
+
+            isColorDarkStatusBar -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                } else {
+                    0
+                }
+            }
+
+            isColorDarkNavigationBar -> {
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
+
+            else -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
+                } else {
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }
+            }
+        }
     }
 }

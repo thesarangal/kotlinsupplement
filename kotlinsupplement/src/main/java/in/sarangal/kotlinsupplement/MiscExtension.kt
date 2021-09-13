@@ -1,5 +1,7 @@
 package `in`.sarangal.kotlinsupplement
 
+import android.graphics.Color
+
 /**
  * @return Mixed Color from Two Colors
  *
@@ -26,3 +28,9 @@ fun mixTwoColors(color1: Int, color2: Int, amount: Float = 0.5f): Int {
             (g shl GREEN_CHANNEL.toInt()) or
             (b shl BLUE_CHANNEL.toInt())
 }
+
+/** Check COLOR is DARK or LIGHT */
+fun Int.isColorDark(): Boolean =
+    (Color.red(this) * 0.299
+            + Color.green(this) * 0.587
+            + Color.blue(this) * 0.114) <= 187 //186
