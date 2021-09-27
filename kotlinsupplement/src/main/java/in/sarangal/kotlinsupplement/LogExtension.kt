@@ -25,7 +25,7 @@ enum class LogType {
  * @param type Type of LOG
  * */
 fun logger(tag: String = "", message: String?, type: LogType = LogType.VERBOSE) {
-    if (BuildConfig.DEBUG && message != null) {
+    if (message != null) {
         when (type) {
             LogType.VERBOSE -> Log.v(tag, message)
             LogType.DEBUG -> Log.d(tag, message)

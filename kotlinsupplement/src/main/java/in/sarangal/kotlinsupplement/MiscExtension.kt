@@ -1,6 +1,9 @@
 package `in`.sarangal.kotlinsupplement
 
 import android.graphics.Color
+import android.os.Bundle
+import androidx.annotation.IdRes
+import androidx.navigation.NavController
 
 /**
  * @return Mixed Color from Two Colors
@@ -34,3 +37,13 @@ fun Int.isColorDark(): Boolean =
     (Color.red(this) * 0.299
             + Color.green(this) * 0.587
             + Color.blue(this) * 0.114) <= 187 //186
+
+/**
+ * Request to Navigate if Navigation Graph is Available
+ *
+ * @param id    ID of Action of Navigation
+ * @param args  Bundle
+ * */
+fun NavController.navigateSafely(@IdRes id: Int, args: Bundle? = null) {
+    currentDestination?.getAction(id)?.run { navigate(id, args) }
+}

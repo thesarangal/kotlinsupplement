@@ -61,8 +61,18 @@ fun String.isStrongPassword(): Boolean {
 /**
  * @return TRUE if String is valid Phone Number
  * */
+@Deprecated("Please use isValidPhone String Extension Function",
+    ReplaceWith("String.isValidPhone()")
+)
 fun isPhoneValid(phone: String): Boolean {
-    return android.util.Patterns.PHONE.matcher(phone).matches()
+    return Patterns.PHONE.matcher(phone).matches()
+}
+
+/**
+ * @return TRUE if String is valid Phone Number
+ * */
+fun String.isValidPhone(): Boolean {
+    return Patterns.PHONE.matcher(this).matches()
 }
 
 /**

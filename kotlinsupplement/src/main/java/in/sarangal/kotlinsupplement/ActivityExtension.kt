@@ -1,6 +1,7 @@
 package `in`.sarangal.kotlinsupplement
 
 import android.app.Activity
+import android.app.ActivityManager
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
@@ -354,4 +355,18 @@ fun Activity.setSystemBarColor(statusBarColor: Int,
             }
         }
     }
+}
+
+/**
+ * @return TRUE if Server is running else FALSE
+ * */
+@Deprecated("")
+fun Activity.isServiceRunning(serviceClass: Class<*>): Boolean {
+    val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
+    if (manager != null) for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+        if (serviceClass.name == service.service.className) {
+            return true
+        }
+    }
+    return false
 }
