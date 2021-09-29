@@ -33,3 +33,19 @@
 
 - New Misc Extension Added
     navigateSafely
+
+### Version 1.2.0
+#### Date: September 27, 2021
+
+- New Date Format Extension Added
+    getDateByFormatCustomUTC
+    getDateFormatFromLong
+
+- New Format Extension Added
+    formatInt
+    formatFloat
+
+- New Activity Extension Added
+    openAppSettings
+
+- Update: Log Extensions

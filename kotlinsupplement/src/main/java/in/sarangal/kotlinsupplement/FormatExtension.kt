@@ -8,16 +8,42 @@ import java.util.*
  * */
 
 /**
+ * @return Integer from String
+ * */
+fun String.formatInt(): Int {
+    var `val` = 0
+    try {
+        `val` = this.toInt()
+    } catch (e: Exception) {
+        try {
+            `val` = Integer.valueOf(this)
+        } catch (ignored: Exception) {
+        }
+    }
+    return `val`
+}
+
+/**
+ * @return Float from String
+ * */
+fun String.formatFloat(): Float {
+    return try {
+        trim().toFloat()
+    } catch (e: Exception) {
+        0f
+    }
+}
+
+/**
  * @return Double from String
  * */
 fun String.toDoubleFormat(): Double {
 
-    try {
+    return try {
         return toDouble()
     } catch (e: Exception) {
+        0.0
     }
-
-    return 0.0
 }
 
 /**

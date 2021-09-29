@@ -370,3 +370,23 @@ fun Activity.isServiceRunning(serviceClass: Class<*>): Boolean {
     }
     return false
 }
+
+/**
+ * Open Application Setting Screen with Package Name
+ *
+ * @param applicationId Pass Package Name (BuildConfig.APPLICATION_ID)
+ * */
+fun Activity.openAppSettings(applicationId: String) {
+
+    val intent = Intent()
+    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+    val uri = Uri.fromParts("package", applicationId.trim(), null)
+    intent.data = uri
+    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+    try {
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        toast("You may not have a proper app for viewing this content")
+    }
+}
