@@ -33,6 +33,14 @@ fun String.isValidPANCard(): Boolean {
 }
 
 /**
+ * @return TRUE if String is valid GST Card
+ * */
+fun String.isValidGST(): Boolean {
+    val regex = """^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$""".toRegex()
+    return regex.matches(this)
+}
+
+/**
  * @return TRUE if String have:
  *
  * at least 1 digit
@@ -56,16 +64,6 @@ fun String.isStrongPassword(): Boolean {
                 "$"
     )
     return passwordREGEX.matcher(this).matches()
-}
-
-/**
- * @return TRUE if String is valid Phone Number
- * */
-@Deprecated("Please use isValidPhone String Extension Function",
-    ReplaceWith("String.isValidPhone()")
-)
-fun isPhoneValid(phone: String): Boolean {
-    return Patterns.PHONE.matcher(phone).matches()
 }
 
 /**
@@ -95,8 +93,8 @@ fun String.isPasswordValid(): Boolean {
  * @return TRUE if STRING is valid PACKAGE NAME
  * */
 fun String.isValidPackageName(): Boolean {
-    val VALID_PACKAGE_REG = "^([A-Za-z][A-Za-z\\d_]*\\.)+[A-Za-z][A-Za-z\\d_]*$"
-    return Pattern.compile(VALID_PACKAGE_REG).matcher(this.trim()).matches()
+    val validPackageReg = "^([A-Za-z][A-Za-z\\d_]*\\.)+[A-Za-z][A-Za-z\\d_]*$"
+    return Pattern.compile(validPackageReg).matcher(this.trim()).matches()
 }
 
 

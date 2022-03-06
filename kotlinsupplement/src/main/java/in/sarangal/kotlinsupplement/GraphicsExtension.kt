@@ -5,6 +5,7 @@ import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
+import android.util.Log
 import androidx.exifinterface.media.ExifInterface
 
 /**
@@ -52,7 +53,7 @@ fun rotateImageIfRequired(context: Context, bitmapImage: Bitmap, selectedImage: 
                 }
                 return bitmapImage
             } catch (e: Exception) {
-                logger(TAG, "rotateImageIfRequired - secondTry: ${e.message}", LogType.ERROR)
+                Log.d(TAG, "rotateImageIfRequired - secondTry: ${e.message}")
                 true
             }
         }
@@ -60,7 +61,7 @@ fun rotateImageIfRequired(context: Context, bitmapImage: Bitmap, selectedImage: 
             return modifyOrientation(bitmapImage, selectedImage.path ?: "")
         }
     } catch (e: Exception) {
-        logger(TAG, "rotateImageIfRequired: ${e.message}", LogType.ERROR)
+        Log.d(TAG, "rotateImageIfRequired: ${e.message}")
         return bitmapImage
     }
     return bitmapImage
@@ -107,7 +108,7 @@ fun flip(bitmap: Bitmap, horizontal: Boolean, vertical: Boolean): Bitmap? {
         matrix.preScale(if (horizontal) -1f else 1.toFloat(), if (vertical) -1f else 1.toFloat())
         Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     } catch (e: Exception) {
-        logger(TAG, "flip: ${e.message}", LogType.ERROR)
+        Log.d(TAG, "flip: ${e.message}")
         bitmap
     }
 }
@@ -124,7 +125,7 @@ fun rotateImage(img: Bitmap, degree: Int): Bitmap? {
         matrix.postRotate(degree.toFloat())
         Bitmap.createBitmap(img, 0, 0, img.width, img.height, matrix, true)
     } catch (e: Exception) {
-        logger(TAG, "rotateImage: ${e.message}", LogType.ERROR)
+        Log.d(TAG, "rotateImage: ${e.message}")
         img
     }
 }
@@ -159,3 +160,22 @@ fun Bitmap.addGradient(startColor: Int, endColor: Int): Bitmap {
     return updatedBitmap ?: this
 }
 
+/**
+ * Reduces the size of the image
+ *
+ * @param maxSize
+ * @return Bitmap
+ */
+fun Bitmap.getResized(maxSize: Int): Bitmap {
+    var width = width
+    var height = height
+    val bitmapRatio = width.toFloat() / height.toFloat()
+    if (bitmapRatio > 1) {
+        width = maxSize
+        height = (width / bitmapRatio).toInt()
+    } else {
+        height = maxSize
+        width = (height * bitmapRatio).toInt()
+    }
+    return Bitmap.createScaledBitmap(this, width, height, true)
+}
