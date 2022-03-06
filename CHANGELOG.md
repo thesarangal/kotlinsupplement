@@ -1,6 +1,6 @@
 # ChangeLog
 
-### Version 1.2.1
+### Version 1.2.2
 #### Date: March 06, 2022
 
 ##### Added
