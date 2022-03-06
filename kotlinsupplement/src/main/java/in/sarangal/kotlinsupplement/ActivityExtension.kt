@@ -21,6 +21,11 @@ import kotlin.system.exitProcess
  * Activity Extension Function
  * */
 
+// Static Data Members
+const val GOOGLE_MAP_PACKAGE = "com.google.android.apps.maps"
+
+// Exception Message
+const val ACTIVITY_NOT_FOUND_EXCEPTION = "You may not have a proper app for viewing this content"
 
 /**
  * Set Background of Activity Theme
@@ -66,7 +71,7 @@ fun Activity.killTheApp() {
 /**
  * Restart Activity Without Animation
  * */
-fun Activity.restart(){
+fun Activity.restart() {
     finish()
     overridePendingTransition(0, 0)
     startActivity(intent)
@@ -76,10 +81,10 @@ fun Activity.restart(){
 /**
  * Restart Application
  * */
-fun Activity.restartApplication(){
+fun Activity.restartApplication() {
     val packageManager: PackageManager = packageManager
     val intent = packageManager.getLaunchIntentForPackage(packageName)
-    if(intent == null){
+    if (intent == null) {
         restart()
         return
     }
@@ -94,8 +99,12 @@ fun Activity.restartApplication(){
  * Open Dialer for Call
  *
  * @param number Phone Number
+ * @param exceptionMsg Custom Message for Exception
  * */
-fun Activity.openDialerForCall(number: String) {
+fun Activity.openDialerForCall(
+    number: String,
+    exceptionMsg: String = ACTIVITY_NOT_FOUND_EXCEPTION
+) {
     val intent = Intent(Intent.ACTION_DIAL)
 
     /* Send phone number to intent as data */
@@ -104,7 +113,7 @@ fun Activity.openDialerForCall(number: String) {
     try {
         startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        toast("You may not have a proper app for viewing this content")
+        toast(exceptionMsg)
     }
 }
 
@@ -112,8 +121,12 @@ fun Activity.openDialerForCall(number: String) {
  * Open Email
  *
  * @param email Email Address
+ * @param exceptionMsg Custom Message for Exception
  * */
-fun Activity.openEmail(email: String) {
+fun Activity.openEmail(
+    email: String,
+    exceptionMsg: String = ACTIVITY_NOT_FOUND_EXCEPTION
+) {
     val emailIntent = Intent(Intent.ACTION_SENDTO)
     emailIntent.data = Uri.parse("mailto:$email")
     startActivity(emailIntent)
@@ -121,7 +134,7 @@ fun Activity.openEmail(email: String) {
     try {
         startActivity(emailIntent)
     } catch (e: ActivityNotFoundException) {
-        toast("You may not have a proper app for viewing this content")
+        toast(exceptionMsg)
     }
 }
 
@@ -129,8 +142,12 @@ fun Activity.openEmail(email: String) {
  * Open URL in Browser
  *
  * @param urlString Web URL
+ * @param exceptionMsg Custom Message for Exception
  * */
-fun Activity.openURLInBrowser(urlString: String) {
+fun Activity.openURLInBrowser(
+    urlString: String,
+    exceptionMsg: String = ACTIVITY_NOT_FOUND_EXCEPTION
+) {
     var url = urlString
 
     if (!url.startsWith("www.") && !url.startsWith("http")) {
@@ -144,7 +161,7 @@ fun Activity.openURLInBrowser(urlString: String) {
     try {
         startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        toast("You may not have a proper app for viewing this content")
+        toast(exceptionMsg)
     }
 }
 
@@ -152,8 +169,12 @@ fun Activity.openURLInBrowser(urlString: String) {
  * Share Plain Text via ShareIntent
  *
  * @param shareText Text To Share
+ * @param exceptionMsg Custom Message for Exception
  * */
-fun Activity.shareTextMessage(shareText: String?) {
+fun Activity.shareTextMessage(
+    shareText: String?,
+    exceptionMsg: String = ACTIVITY_NOT_FOUND_EXCEPTION
+) {
     val intent2 = Intent()
     intent2.action = Intent.ACTION_SEND
     intent2.type = "text/plain"
@@ -167,7 +188,7 @@ fun Activity.shareTextMessage(shareText: String?) {
     if (intent2.resolveActivity(packageManager) != null) {
         startActivity(chooser)
     } else {
-        toast("You may not have a proper app for viewing this content")
+        toast(exceptionMsg)
     }
 }
 
@@ -180,11 +201,11 @@ fun Activity.shareTextMessage(shareText: String?) {
 fun Activity.openDirectionInGoogleMap(latitude: Double, longitude: Double) {
     val gmmIntentUri = Uri.parse("http://maps.google.com/maps?daddr=$latitude,$longitude")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-    mapIntent.setPackage("com.google.android.apps.maps")
+    mapIntent.setPackage(GOOGLE_MAP_PACKAGE)
     if (mapIntent.resolveActivity(packageManager) != null) {
         startActivity(mapIntent)
     } else {
-        openURLInBrowser( "https://www.google.com/maps/?daddr=$latitude,$longitude")
+        openURLInBrowser("https://www.google.com/maps/?daddr=$latitude,$longitude")
     }
 }
 
@@ -195,13 +216,14 @@ fun Activity.openDirectionInGoogleMap(latitude: Double, longitude: Double) {
  * @param longitude Longitude Value
  * */
 fun Activity.openLocationInGoogleMap(latitude: Double, longitude: Double) {
-    val gmmIntentUri = Uri.parse("geo:$latitude,$longitude?q=$latitude,$longitude($latitude,$longitude)")
+    val gmmIntentUri =
+        Uri.parse("geo:$latitude,$longitude?q=$latitude,$longitude($latitude,$longitude)")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-    mapIntent.setPackage("com.google.android.apps.maps")
+    mapIntent.setPackage(GOOGLE_MAP_PACKAGE)
     if (mapIntent.resolveActivity(packageManager) != null) {
         startActivity(mapIntent)
     } else {
-        openURLInBrowser( "https://www.google.com/maps/?q=$latitude,$longitude")
+        openURLInBrowser("https://www.google.com/maps/?q=$latitude,$longitude")
     }
 }
 
@@ -213,11 +235,11 @@ fun Activity.openLocationInGoogleMap(latitude: Double, longitude: Double) {
 fun Activity.openAddressInGoogleMap(address: String) {
     val gmmIntentUri = Uri.parse("http://maps.google.co.in/maps?q=$address")
     val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-    mapIntent.setPackage("com.google.android.apps.maps")
+    mapIntent.setPackage(GOOGLE_MAP_PACKAGE)
     if (mapIntent.resolveActivity(packageManager) != null) {
         startActivity(mapIntent)
     } else {
-        openURLInBrowser( "https://www.google.com/maps/place/$address/")
+        openURLInBrowser("https://www.google.com/maps/place/$address/")
     }
 }
 
@@ -230,7 +252,7 @@ fun Activity.openAddressInGoogleMap(address: String) {
  * Makes status bars become opaque with solid dark background and light foreground.
  */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun Activity.setStatusBarColor(statusBarColor: Int, view: View ?= null) {
+fun Activity.setStatusBarColor(statusBarColor: Int, view: View? = null) {
     window.statusBarColor = statusBarColor
 
     val isColorDark = statusBarColor.isColorDark()
@@ -246,7 +268,8 @@ fun Activity.setStatusBarColor(statusBarColor: Int, view: View ?= null) {
 
     @Suppress("DEPRECATION")
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        (view ?: window.decorView).systemUiVisibility = if(isColorDark) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        (view ?: window.decorView).systemUiVisibility =
+            if (isColorDark) 0 else View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
     }
 }
 
@@ -259,7 +282,7 @@ fun Activity.setStatusBarColor(statusBarColor: Int, view: View ?= null) {
  * Makes status bars become opaque with solid dark background and light foreground.
  */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun Activity.setNavigationBarColor(navigationBarColor: Int, view: View ?= null) {
+fun Activity.setNavigationBarColor(navigationBarColor: Int, view: View? = null) {
     window.navigationBarColor = navigationBarColor
 
     val isColorDark = navigationBarColor.isColorDark()
@@ -293,9 +316,11 @@ fun Activity.setNavigationBarColor(navigationBarColor: Int, view: View ?= null) 
  * Makes status bars become opaque with solid dark background and light foreground.
  */
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-fun Activity.setSystemBarColor(statusBarColor: Int,
-                               navigationBarColor: Int,
-                               view: View ?= null) {
+fun Activity.setSystemBarColor(
+    statusBarColor: Int,
+    navigationBarColor: Int,
+    view: View? = null
+) {
     window.statusBarColor = statusBarColor
     window.navigationBarColor = navigationBarColor
 
@@ -360,7 +385,6 @@ fun Activity.setSystemBarColor(statusBarColor: Int,
 /**
  * @return TRUE if Server is running else FALSE
  * */
-@Deprecated("")
 fun Activity.isServiceRunning(serviceClass: Class<*>): Boolean {
     val manager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager?
     if (manager != null) for (service in manager.getRunningServices(Int.MAX_VALUE)) {
@@ -375,8 +399,12 @@ fun Activity.isServiceRunning(serviceClass: Class<*>): Boolean {
  * Open Application Setting Screen with Package Name
  *
  * @param applicationId Pass Package Name (BuildConfig.APPLICATION_ID)
+ * @param exceptionMsg Custom Message for Exception
  * */
-fun Activity.openAppSettings(applicationId: String) {
+fun Activity.openAppSettings(
+    applicationId: String,
+    exceptionMsg: String = ACTIVITY_NOT_FOUND_EXCEPTION
+) {
 
     val intent = Intent()
     intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
@@ -387,6 +415,6 @@ fun Activity.openAppSettings(applicationId: String) {
     try {
         startActivity(intent)
     } catch (e: ActivityNotFoundException) {
-        toast("You may not have a proper app for viewing this content")
+        toast(exceptionMsg)
     }
 }

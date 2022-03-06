@@ -1,7 +1,7 @@
 package `in`.sarangal.kotlinsupplement
 
 import android.graphics.Color
-import java.text.DecimalFormat
+import android.util.Log
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -72,7 +72,7 @@ fun String.parseColor(): Int = try {
     Color.parseColor(this)
 } catch (e: Exception) {
     if (this.isNotEmpty())
-        logger(javaClass.simpleName, "parseColor: ${e.message}", LogType.ERROR)
+        Log.d(javaClass.simpleName, "parseColor: ${e.message}")
     Color.DKGRAY
 }
 
@@ -103,12 +103,12 @@ fun String.getCurrencySymbol(): String {
             val currency = Currency.getInstance(locale)
             currencyLocaleMap[currency] = locale
         } catch (e: java.lang.Exception) {
-            logger(javaClass.simpleName, "getCurrencySymbol: ${e.message}", LogType.ERROR)
+            Log.d(javaClass.simpleName, "getCurrencySymbol: ${e.message}")
         }
     }
 
     val currency = Currency.getInstance(this.trim())
-    logger(
+    Log.d(
         javaClass.simpleName,
         this.trim() + ":-" + currency.getSymbol(currencyLocaleMap[currency])
     )
@@ -158,6 +158,6 @@ fun String.haveAnyAlphabetNumber(): Boolean {
  * @return TRUE if STRING is contain any number
  * */
 fun String.isContainNumber(): Boolean {
-    val CONTAIN_NUMBER = ".*\\d.*"
-    return Pattern.compile(CONTAIN_NUMBER).matcher(this.trim()).matches()
+    val containNumber = ".*\\d.*"
+    return Pattern.compile(containNumber).matcher(this.trim()).matches()
 }

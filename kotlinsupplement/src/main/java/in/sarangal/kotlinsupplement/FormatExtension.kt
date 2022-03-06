@@ -17,7 +17,8 @@ fun String.formatInt(): Int {
     } catch (e: Exception) {
         try {
             `val` = Integer.valueOf(this)
-        } catch (ignored: Exception) {
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
     return `val`
@@ -51,6 +52,14 @@ fun String.toDoubleFormat(): Double {
  * */
 fun Double.formatDouble(): String {
     val df = DecimalFormat("#,###,###.##")
+    return df.format(this)
+}
+
+/**
+ * @return String after Formatting Double Value E.g 2.11 -> 2.1, 1.0 -> 1
+ * */
+fun Double.formatDoubleTrail(): String {
+    val df = DecimalFormat("#,###,###.#")
     return df.format(this)
 }
 

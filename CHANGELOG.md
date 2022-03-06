@@ -1,5 +1,53 @@
 # ChangeLog
 
+### Version 1.2.1
+#### Date: March 06, 2022
+
+##### Added
+
+- Graphics Extension:
+  getResized
+
+- Validation Extension:
+  Double.formatDoubleTrail
+
+- Format Extension:
+  String.isValidGST
+
+- Misc Extension:
+  View.showWithAnim
+  View.hideWithAnim
+  InputStream.getBytes
+  
+###### Update
+
+- Activity Extension:
+  Activity.openDialerForCall
+  Activity.openEmail
+  Activity.openURLInBrowser
+  Activity.shareTextMessage
+  Activity.openAppSettings
+  Activity.isServiceRunning
+  
+- Format Extension:
+  String.formatInt
+  
+- String Extension:
+  String.isContainNumber
+  
+- Validation Extension:
+  String.isValidPackageName
+  
+- Date Format Extension:
+  'DATE_TIME_FORMAT' interface replaced with 'DateTimeFormat' object
+  
+###### Removed
+
+- Validation Extension:
+  isPhoneValid(): Use 'isValidPhone()' Instead
+  
+- Log Extensions Removed
+
 ### Version 1.2.0
 #### Date: September 27, 2021
 

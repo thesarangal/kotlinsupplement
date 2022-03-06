@@ -1,5 +1,6 @@
 package `in`.sarangal.kotlinsupplement
 
+import android.util.Log
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -7,42 +8,40 @@ import java.util.*
 /**
  * Some Date and Time Formats
  * */
-interface DATE_TIME_FORMAT {
-    companion object {
+object DateTimeFormat {
 
-        /* 1993-12-06T05:15:30.600Z */
-        const val MONOGO_DB_UTC = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'"
+    /* 1993-12-06T05:15:30.600Z */
+    const val MONOGO_DB_UTC = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'"
 
-        /* December 06, 1993 */
-        const val MMMM_dd_yyyy = "MMMM dd, yyyy"
+    /* December 06, 1993 */
+    const val MMMM_dd_yyyy = "MMMM dd, yyyy"
 
-        /* Dec 06, 1993 */
-        const val MMM_dd_yyyy = "MMM dd, yyyy"
+    /* Dec 06, 1993 */
+    const val MMM_dd_yyyy = "MMM dd, yyyy"
 
-        /* Friday, December 06 */
-        const val EEEE_MMMM_dd = "EEEE, MMMM dd"
+    /* Friday, December 06 */
+    const val EEEE_MMMM_dd = "EEEE, MMMM dd"
 
-        /* 12:05 AM */
-        const val hh_mm_aa = "hh:mm aa"
+    /* 12:05 AM */
+    const val hh_mm_aa = "hh:mm aa"
 
-        /* 13:05 */
-        const val HH_MM = "HH:mm"
+    /* 13:05 */
+    const val HH_MM = "HH:mm"
 
-        /* 06 */
-        const val dd = "dd"
+    /* 06 */
+    const val dd = "dd"
 
-        /* Dec */
-        const val MMM = "MMM"
+    /* Dec */
+    const val MMM = "MMM"
 
-        /* December 1993 */
-        const val MMMM_yyyy = "MMMM yyyy"
+    /* December 1993 */
+    const val MMMM_yyyy = "MMMM yyyy"
 
-        /* December 06, 1993 23:30 */
-        const val MMMM_dd_yyyy_HH_mm = "MMMM dd, yyyy HH:mm"
+    /* December 06, 1993 23:30 */
+    const val MMMM_dd_yyyy_HH_mm = "MMMM dd, yyyy HH:mm"
 
-        /* December 06, 1993 23:30 */
-        const val MMMM_dd_yyyy_hh_mm = "MMMM dd, yyyy hh:mm aa"
-    }
+    /* December 06, 1993 23:30 */
+    const val MMMM_dd_yyyy_hh_mm = "MMMM dd, yyyy hh:mm aa"
 }
 
 /**
@@ -73,7 +72,7 @@ fun getDateByFormatCustomUTC(
     try {
         mDate = mSimpleDateFormat.parse(inputData)
     } catch (e: ParseException) {
-        logger("DateFormatExtension", "getDateByFormatCustomUTC: ${e.message}", LogType.ERROR)
+        Log.d("DateFormatExtension", "getDateByFormatCustomUTC: ${e.message}")
     }
 
     if (mDate != null) {

@@ -2,8 +2,15 @@ package `in`.sarangal.kotlinsupplement
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import androidx.annotation.AnimRes
 import androidx.annotation.IdRes
 import androidx.navigation.NavController
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 /**
  * @return Mixed Color from Two Colors
@@ -46,4 +53,55 @@ fun Int.isColorDark(): Boolean =
  * */
 fun NavController.navigateSafely(@IdRes id: Int, args: Bundle? = null) {
     currentDestination?.getAction(id)?.run { navigate(id, args) }
+}
+
+/**
+ * Show View with Animation
+ *
+ * @param animationId Animation Id (From res/anim directory)
+ * */
+fun View.showWithAnim(@AnimRes animationId: Int) {
+
+    if (visibility == View.VISIBLE) return
+
+    val animation: Animation = AnimationUtils.loadAnimation(
+        context,
+        animationId
+    )
+
+    startAnimation(animation)
+    visibility = View.VISIBLE
+}
+
+/**
+ * Hide View with Animation
+ *
+ * @param animationId Animation Id (From res/anim directory)
+ * */
+fun View.hideWithAnim(@AnimRes animationId: Int) {
+
+    if (visibility == View.GONE) return
+
+    val animation: Animation = AnimationUtils.loadAnimation(
+        context,
+        animationId
+    )
+
+    startAnimation(animation)
+    visibility = View.GONE
+}
+
+/**
+ * @return ByteArray from InputStream
+ * */
+@Throws(IOException::class)
+fun InputStream.getBytes(): ByteArray? {
+    val byteBuffer = ByteArrayOutputStream()
+    val bufferSize = 1024
+    val buffer = ByteArray(bufferSize)
+    var len = 0
+    while (read(buffer).also { len = it } != -1) {
+        byteBuffer.write(buffer, 0, len)
+    }
+    return byteBuffer.toByteArray()
 }
