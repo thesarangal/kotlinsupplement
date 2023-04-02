@@ -3,11 +3,9 @@ package `in`.sarangal.kotlinsupplement
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.location.LocationManager
-import android.net.Uri
-import android.provider.Settings
 import android.widget.Toast
+import androidx.annotation.StringRes
 
 /**
  * Context Extensions
@@ -23,7 +21,7 @@ fun Context.copyTextToClipboard(value: String, messageShow: String? = null) {
 
     if (messageShow != null) {
         toast(
-            if (messageShow.isNotEmptyTrim()) {
+            if (messageShow.isNotBlank()) {
                 messageShow
             } else {
                 "Copied to clipboard"
@@ -43,12 +41,30 @@ fun Context.copyTextToClipboard(value: String, messageShow: String? = null) {
  * @param message To show toast message.
  * @param isLongLength TRUE if Toast.LENGTH_LONG else FALSE
  * */
-fun Context.toast(message: String, isLongLength : Boolean = false) {
-    Toast.makeText(this, message, if(isLongLength) {
-        Toast.LENGTH_LONG
-    } else {
-        Toast.LENGTH_SHORT
-    }).show()
+fun Context.toast(message: String, isLongLength: Boolean = false) {
+    Toast.makeText(
+        this, message, if (isLongLength) {
+            Toast.LENGTH_LONG
+        } else {
+            Toast.LENGTH_SHORT
+        }
+    ).show()
+}
+
+/**
+ * Show Toast Message
+ *
+ * @param message String Resource ID.
+ * @param isLongLength TRUE if Toast.LENGTH_LONG else FALSE
+ * */
+fun Context.toast(@StringRes message: Int, isLongLength: Boolean = false) {
+    Toast.makeText(
+        this, message, if (isLongLength) {
+            Toast.LENGTH_LONG
+        } else {
+            Toast.LENGTH_SHORT
+        }
+    ).show()
 }
 
 /**
@@ -57,7 +73,7 @@ fun Context.toast(message: String, isLongLength : Boolean = false) {
 fun Context.isGPSEnabled(): Boolean {
     val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
     locationManager?.let {
-        return locationManager.isProviderEnabled(LocationManager. GPS_PROVIDER)
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
     }
     return false
 }
@@ -68,7 +84,7 @@ fun Context.isGPSEnabled(): Boolean {
 fun Context.isLocationNetworkProvider(): Boolean {
     val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager?
     locationManager?.let {
-        return locationManager.isProviderEnabled(LocationManager. NETWORK_PROVIDER)
+        return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
     }
     return false
 }

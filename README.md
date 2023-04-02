@@ -10,9 +10,9 @@ Current Version: [![](https://jitpack.io/v/thesarangal/kotlinsupplement.svg)](ht
 
 - Activity
 - Context
+- Date Format Conversion
 - Format Conversion
 - Graphics
-- LOG
 - Safety Function for String, Array and Collections etc
 - String
 - Validations
@@ -50,84 +50,15 @@ Done! The first time you request a project JitPack checks out the code, builds i
     /* If there is reference of Context */
     context.toast("Welcome to KotlinSupplement")
 
-### All Extension Functions
-#### I. Activity Extensions
-##### * setWindowBackground
-##### * hideKeyboard
-##### * killTheApp
-##### * restart
-##### * restartApplication
-##### * openDialerForCall
-##### * openEmail
-##### * openURLInBrowser
-##### * shareTextMessage
-##### * openDirectionInGoogleMap
-##### * openLocationInGoogleMap
-##### * setStatusBarColor
-##### * setNavigationBarColor
-##### * setSystemBarColor
+## Contributions
 
-#### II. Context Extensions
-##### * copyTextToClipboard
-##### * toast
-##### * isGPSEnabled
-##### * isLocationNetworkProvider
+Contributions to this library are welcome. If you find a bug or have a feature request,
+please open an issue on
+the [GitHub repository](https://github.com/thesarangal/kotlinsupplement).
 
-#### III. Format Extensions
-##### * toDoubleFormat
-##### * formatDouble
-##### * formatDecimal
+## License
 
-#### IV. Graphics Extensions
-##### * getBitmap
-##### * rotateImageIfRequired
-##### * modifyOrientation
-##### * flip
-##### * rotateImage
-##### * addGradient
-
-#### V. LOG Extensions
-##### * logger
-
-#### VI. Safety Extensions
-##### * isNotNullAndEmpty (For String/CharSequence)
-##### * isNotNullAndEmptyTrim (For String/CharSequence)
-##### * isNotEmptyTrim (For String/CharSequence)
-##### * isNotNullAndEmpty (For Array)
-##### * isNotNullAndEmpty (For Collection)
-##### * ifNotNull
-##### * isNotNullAndEmpty  (For Map)
-
-#### VII. String Extensions
-##### * upperCase
-##### * lowerCase
-##### * capitalize
-##### * capitalizeSentence
-##### * capitalizeFirstLetter
-##### * capitalizeFirstLetterOnly
-##### * formatSpaceUnderScore
-##### * getLastCharacters
-##### * parseColor
-##### * setValue (For StringBuilder)
-##### * getCurrencySymbol
-##### * isContainEnglish
-##### * isContainHindi
-##### * haveAnyAlphabetNumber
-##### * isContainNumber
-
-#### VIII. Validation Extensions
-##### * isValidIFSC
-##### * isValidUPI
-##### * isValidPANCard
-##### * isStrongPassword
-##### * isPhoneValid
-##### * isPasswordValid
-##### * isValidPackageName
-
-#### IX. Misc Extensions
-##### * mixTwoColors
-##### * isColorDark
-
-
+This library is released under the [MIT License](https://opensource.org/licenses/MIT).
+You are free to use, modify, and distribute the library for commercial and non-commercial purposes, with attribution to the author.
 
 #### Developed with ❤ by Sarangal

@@ -11,7 +11,13 @@ import java.util.*
 object DateTimeFormat {
 
     /* 1993-12-06T05:15:30.600Z */
-    const val MONOGO_DB_UTC = "yyyy-MM-dd'T'HH:mm:ss.SS'Z'"
+    const val MONOGO_DB_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
+    /* December 06, 1993 23:30 */
+    const val MMMM_dd_yyyy_HH_mm = "MMMM dd, yyyy HH:mm"
+
+    /* December 06, 1993 01:30 am */
+    const val MMMM_dd_yyyy_hh_mm = "MMMM dd, yyyy hh:mm aa"
 
     /* December 06, 1993 */
     const val MMMM_dd_yyyy = "MMMM dd, yyyy"
@@ -22,26 +28,35 @@ object DateTimeFormat {
     /* Friday, December 06 */
     const val EEEE_MMMM_dd = "EEEE, MMMM dd"
 
+    /* December 1993 */
+    const val MMMM_yyyy = "MMMM yyyy"
+
+    /* Dec 1993 */
+    const val MMM_yyyy = "MMM yyyy"
+
+    /* December 06 */
+    const val MMMM_dd = "MMMM dd"
+
+    /* Dec 06 */
+    const val MMM_dd = "MMM dd"
+
+    /* 1996 */
+    const val yyyy = "yyyy"
+
+    /* December */
+    const val MMMM = "MMMM"
+
+    /* Dec */
+    const val MMM = "MMM"
+
+    /* 06 */
+    const val dd = "dd"
+
     /* 12:05 AM */
     const val hh_mm_aa = "hh:mm aa"
 
     /* 13:05 */
     const val HH_MM = "HH:mm"
-
-    /* 06 */
-    const val dd = "dd"
-
-    /* Dec */
-    const val MMM = "MMM"
-
-    /* December 1993 */
-    const val MMMM_yyyy = "MMMM yyyy"
-
-    /* December 06, 1993 23:30 */
-    const val MMMM_dd_yyyy_HH_mm = "MMMM dd, yyyy HH:mm"
-
-    /* December 06, 1993 23:30 */
-    const val MMMM_dd_yyyy_hh_mm = "MMMM dd, yyyy hh:mm aa"
 }
 
 /**

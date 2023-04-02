@@ -64,9 +64,9 @@ fun Double.formatDoubleTrail(): String {
 }
 
 /**
- * @return String after Formatting Double Value upto N Decimal Number
- *
- * @param upTo Decimal Number
- * */
+ * Extension function to format a Double value to a decimal format with a specific number of decimal places.
+ * @param upTo The number of decimal places to format the Double to. Default value is 2 if not provided.
+ * @return A Double value formatted to the specified number of decimal places.
+ */
 fun Double.formatDecimal(upTo: Int? = 2) =
     String.format(Locale.US, "%.${upTo}f", this).toDouble()

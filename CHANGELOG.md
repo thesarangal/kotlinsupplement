@@ -1,5 +1,25 @@
 # ChangeLog
 
+### Version 1.3.0
+#### Date: April 01, 2023
+
+##### Added
+
+- ContextExtension:
+  `toast` with String Resource
+
+- DateFormatExtension
+  New DateTime Formats
+
+- SafetyExtension:
+  `isNotNullAndBlank()`
+  `ifAnyNullExists()`
+
+##### Deprecated
+- SafetyExtensions:
+  `isNotEmptyTrim()`: Use `isNotBlank()`
+  `isNotNullAndEmptyTrim()`: Use `isNotNullAndBlank()`
+
 ### Version 1.2.2
 #### Date: March 06, 2022
 
