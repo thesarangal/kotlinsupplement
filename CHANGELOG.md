@@ -1,5 +1,18 @@
 # ChangeLog
 
+### Version 1.3.1
+#### Date: April 01, 2023
+
+##### Added
+
+- ActivityExtension:
+  `openAppNotificationSettings`
+
+##### Deprecated
+- SafetyExtensions:
+  `isNotEmptyTrim()`: Use `isNotBlank()`
+  `isNotNullAndEmptyTrim()`: Use `isNotNullAndBlank()`
+
 ### Version 1.3.0
 #### Date: April 01, 2023
 
