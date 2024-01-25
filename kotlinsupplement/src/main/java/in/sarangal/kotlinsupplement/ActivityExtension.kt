@@ -418,3 +418,25 @@ fun Activity.openAppSettings(
         toast(exceptionMsg)
     }
 }
+
+/**
+ * Open Application's Notification Setting Screen with Package Name
+ *
+ * @param applicationId Pass Package Name (BuildConfig.APPLICATION_ID)
+ * @param exceptionMsg Custom Message for Exception
+ * */
+@RequiresApi(Build.VERSION_CODES.O)
+fun Activity.openAppNotificationSettings(
+    applicationId: String,
+    exceptionMsg: String
+) {
+    val intent: Intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        .putExtra(Settings.EXTRA_APP_PACKAGE, applicationId)
+
+    try {
+        startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        toast(exceptionMsg)
+    }
+}
